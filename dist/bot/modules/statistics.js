@@ -36,12 +36,13 @@ statistics.callbackQuery("statistics", (ctx) => __awaiter(void 0, void 0, void 0
     });
     const keyboard = new InlineKeyboard()
         .text(ctx.t("back_button"), "menu");
-    yield ctx.editMessageText(`<b>Statistics 📊</b>
-
-⭐ <code>Active Today:</code> ${activeToday}
-👥 <code>Users:</code> ${users} (+${usersToday})
-🎧 <code>Audios:</code> ${audios} (+${audiosToday})
-    `, {
+    yield ctx.editMessageText(ctx.t("statistics", {
+        users,
+        audios,
+        usersToday,
+        audiosToday,
+        activeToday
+    }), {
         parse_mode: "HTML",
         reply_markup: keyboard
     });

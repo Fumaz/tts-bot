@@ -18,6 +18,7 @@ statistics =
     ⭐ <code>Active Today:</code> { $activeToday }
     👥 <code>Users:</code> { $users } (+{ $usersToday })
     🎧 <code>Audios:</code> { $audios } (+{ $audiosToday })
+    🌎 <code>Characters:</code> { $characters } (+{ $charactersToday })
 text_too_long = ❌ Your audio can't be that long!
 caption = 🔊 Created with @TTSBot
 creating = 🎈 Creating your audio...

@@ -14,7 +14,7 @@ function handle(ctx) {
         const keyboard = new InlineKeyboard()
             .switchInline(ctx.t("inline_button"), "")
             .row()
-            .text(ctx.t("settings_button"), "settings")
+            .text(ctx.t("language_button"), "language")
             .text(ctx.t("statistics_button"), "statistics");
         const message = ctx.t("menu");
         yield ctx.editOrReplyWithHTML(message, {

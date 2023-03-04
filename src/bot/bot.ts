@@ -1,5 +1,4 @@
 import {Bot, Context} from "grammy";
-import {run} from "@grammyjs/runner";
 import {apiThrottler} from "@grammyjs/transformer-throttler";
 import {autoRetry} from "@grammyjs/auto-retry";
 import {hydrate, HydrateFlavor} from "@grammyjs/hydrate";
@@ -13,8 +12,8 @@ import {statistics} from "./modules/statistics.js";
 import {editOrReply} from "./middlewares/edit-or-reply.js";
 import {menu} from "./modules/menu.js";
 import {language} from "./modules/language.js";
-import {settings} from "./modules/settings.js";
 import {inline} from "./modules/inline.js";
+import {run} from "@grammyjs/runner";
 
 type UserContext = {
     user: User;
@@ -37,7 +36,7 @@ const i18n = new I18n<TTSContext>({
     globalTranslationContext: (ctx) => {
         return {
             mention: ctx.user.first_name,
-            slow_mode: ctx.user.slow_mode ? "✅" : "❌",
+            slow_mode: "",
             image: "<a href='https://i.imgur.com/t5z3GEu.png'>​</a>",
         }
     }
@@ -57,10 +56,7 @@ bot.use(i18n);
 
 bot.use(statistics);
 bot.use(language);
-bot.use(settings);
 bot.use(inline);
 bot.use(menu);
-
-bot.command("start", (ctx) => ctx.reply("Hello!"));
 
 run(bot);

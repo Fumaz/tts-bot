@@ -23,6 +23,18 @@ export async function database(ctx: TTSContext, next: NextFunction) {
                 language: ctx.from.language_code?.substring(0, 2),
             }
         });
+    } else {
+        user = await db.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                first_name: ctx.from.first_name,
+                last_name: ctx.from.last_name,
+                username: ctx.from.username,
+                active: true
+            }
+        });
     }
 
     ctx.user = user;

@@ -11,18 +11,16 @@ datasource db {
 }
 
 model User {
-  id           BigInt   @id
-  first_name   String
-  last_name    String?
-  username     String?
-  updated_at   DateTime @default(now()) @updatedAt
-  created_at   DateTime @default(now())
-  admin        Boolean  @default(false)
-  active       Boolean  @default(true)
-  banned       Boolean  @default(false)
-  always_speak Boolean  @default(false)
-  slow_mode    Boolean  @default(false)
-  language     String   @default("en")
+  id         BigInt   @id
+  first_name String
+  last_name  String?
+  username   String?
+  updated_at DateTime @default(now()) @updatedAt
+  created_at DateTime @default(now())
+  admin      Boolean  @default(false)
+  active     Boolean  @default(true)
+  banned     Boolean  @default(false)
+  language   String   @default("en")
 
   audios Audio[]
 }

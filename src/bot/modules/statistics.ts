@@ -32,6 +32,23 @@ statistics.callbackQuery("statistics", async (ctx) => {
         }
     });
 
+    const characters = await database.audio.aggregate({
+        _sum: {
+            length: true
+        }
+    });
+
+    const charactersToday = await database.audio.aggregate({
+        _sum: {
+            length: true
+        },
+        where: {
+            created_at: {
+                gte: new Date(new Date().setHours(0, 0, 0, 0))
+            }
+        }
+    });
+
     const keyboard = new InlineKeyboard()
         .text(ctx.t("back_button"), "menu");
 
@@ -40,7 +57,9 @@ statistics.callbackQuery("statistics", async (ctx) => {
         audios,
         usersToday,
         audiosToday,
-        activeToday
+        activeToday,
+        characters: characters._sum.length || 0,
+        charactersToday: charactersToday._sum.length || 0
     }), {
         parse_mode: "HTML",
         reply_markup: keyboard
