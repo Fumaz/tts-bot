@@ -1,0 +1,59 @@
+version: '3'
+
+volumes:
+  postgres_data: { }
+
+networks:
+  web:
+    external: true
+
+services:
+  bot:
+    container_name: tts-bot
+    build: .
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    command: ./wait-for-it.sh postgres:5432 -- ./start-bot-script.sh
+    networks:
+      - default
+  api:
+    container_name: tts-api
+    build: .
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    command: ./wait-for-it.sh postgres:5432 -- ./start-api-script.sh
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tts-api.rule=Host(`api.fumaz.dev`) && PathPrefix(`/tts`)
+      - traefik.http.routers.tts-api.tls.certresolver=lets-encrypt
+      - traefik.http.services.tts-api.loadbalancer.server.port=8000
+      - traefik.http.middlewares.tts-api-stripprefix.stripprefix.prefixes=/tts
+      - traefik.http.middlewares.tts-api-stripprefix.stripprefix.forceSlash=false
+      - traefik.http.routers.tts-api.middlewares=tts-api-stripprefix
+    networks:
+      - web
+      - default
+  postgres:
+    container_name: tts-postgres
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=tts
+    networks:
+      - default
