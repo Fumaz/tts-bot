@@ -19,12 +19,19 @@ async function createMP3(text: string, language: string): Promise<string> {
     });
 }
 
-async function convertToOGG(filename: string) {
+async function convertToOGG(filename: string): Promise<string> {
     const output = filename.replace(".mp3", ".ogg");
+    const process = await exec(`ffmpeg -i ${filename} -acodec libopus -b:a 64k -vbr on ${output}`);
 
-    await exec(`ffmpeg -i ${filename} -acodec libopus -b:a 64k -vbr on ${output}`);
-
-    return output;
+    return new Promise((resolve, reject) => {
+        process.on("exit", (code) => {
+            if (code === 0) {
+                resolve(output);
+            } else {
+                reject();
+            }
+        });
+    });
 }
 
 export async function createAudio(text: string, language: string) {

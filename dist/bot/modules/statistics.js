@@ -34,6 +34,21 @@ statistics.callbackQuery("statistics", (ctx) => __awaiter(void 0, void 0, void 0
             }
         }
     });
+    const characters = yield database.audio.aggregate({
+        _sum: {
+            length: true
+        }
+    });
+    const charactersToday = yield database.audio.aggregate({
+        _sum: {
+            length: true
+        },
+        where: {
+            created_at: {
+                gte: new Date(new Date().setHours(0, 0, 0, 0))
+            }
+        }
+    });
     const keyboard = new InlineKeyboard()
         .text(ctx.t("back_button"), "menu");
     yield ctx.editMessageText(ctx.t("statistics", {
@@ -41,7 +56,9 @@ statistics.callbackQuery("statistics", (ctx) => __awaiter(void 0, void 0, void 0
         audios,
         usersToday,
         audiosToday,
-        activeToday
+        activeToday,
+        characters: characters._sum.length || 0,
+        charactersToday: charactersToday._sum.length || 0
     }), {
         parse_mode: "HTML",
         reply_markup: keyboard

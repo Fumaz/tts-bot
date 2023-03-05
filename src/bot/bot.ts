@@ -14,6 +14,7 @@ import {menu} from "./modules/menu.js";
 import {language} from "./modules/language.js";
 import {inline} from "./modules/inline.js";
 import {run} from "@grammyjs/runner";
+import {audio} from "./modules/audio.js";
 
 type UserContext = {
     user: User;
@@ -58,5 +59,6 @@ bot.use(statistics);
 bot.use(language);
 bot.use(inline);
 bot.use(menu);
+bot.use(audio);
 
 run(bot);
