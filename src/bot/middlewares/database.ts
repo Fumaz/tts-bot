@@ -7,6 +7,10 @@ export async function database(ctx: TTSContext, next: NextFunction) {
         return;
     }
 
+    if (ctx.chat && ctx.chat?.type !== "private") {
+        return;
+    }
+
     let user = await db.user.findUnique({
         where: {
             id: ctx.from.id
