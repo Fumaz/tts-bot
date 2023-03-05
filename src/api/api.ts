@@ -13,7 +13,13 @@ app.get("/:file", (req, res) => {
     const path = "/usr/src/app/audios/" + file;
     res.sendFile(path);
 
-    rmSync(path);
+    setTimeout(() => {
+        try {
+            rmSync(path);
+        } catch (e) {
+            // Ignore
+        }
+    }, 60 * 1000);
 });
 
 app.listen(8000, () => {

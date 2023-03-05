@@ -15,6 +15,7 @@ import {language} from "./modules/language.js";
 import {inline} from "./modules/inline.js";
 import {run} from "@grammyjs/runner";
 import {audio} from "./modules/audio.js";
+import {removeAudios} from "./audios/audio.js";
 
 type UserContext = {
     user: User;
@@ -61,4 +62,7 @@ bot.use(inline);
 bot.use(menu);
 bot.use(audio);
 
-run(bot);
+removeAudios().then(() => {
+    console.log("🤖 Logged in as @TTSBot");
+    run(bot);
+});

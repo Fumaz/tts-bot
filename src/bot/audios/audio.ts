@@ -23,7 +23,6 @@ async function convertToOGG(filename: string): Promise<string> {
     const output = filename.replace(".mp3", ".ogg");
     const process = await exec(`ffmpeg -i ${filename} -acodec libopus -b:a 64k -vbr on ${output}`);
 
-    process.stdout?.on("data", (data) => console.log(data));
     process.stderr?.on("data", (data) => console.error(data));
 
     return new Promise((resolve, reject) => {
@@ -31,7 +30,6 @@ async function convertToOGG(filename: string): Promise<string> {
             if (code === 0) {
                 resolve(output);
             } else {
-                console.log("status code: " + code);
                 reject();
             }
         });
@@ -52,4 +50,8 @@ export async function createAudioLink(text: string, language: string) {
     const ogg = await createAudio(text, language);
 
     return ogg.replace("/usr/src/app/audios", "https://api.fumaz.dev/tts");
+}
+
+export async function removeAudios() {
+    await exec("rm /usr/src/app/audios/*.ogg");
 }

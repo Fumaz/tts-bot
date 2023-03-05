@@ -15,7 +15,6 @@ audio.on(':text').hears(/^(?!\/)/, async (ctx) => {
         await ctx.replyWithAudio(new InputFile(audio));
         await rm(audio);
     } catch (e) {
-        console.log(e);
         await ctx.replyWithHTML(ctx.t("error_try_again"));
     }
 

@@ -46,8 +46,6 @@ async function createAudioResult(ctx: TTSContext, text: string, keyboard: boolea
 }
 
 inline.inlineQuery(/.*/, async (ctx) => {
-    console.log("Inline query: " + ctx.inlineQuery.query);
-
     const text = ctx.inlineQuery.query.replace(/[\n\r]/g, " ").trim();
     const switchPMText = ctx.t("inline_language");
     const switchPMParameter = "language";
@@ -58,9 +56,7 @@ inline.inlineQuery(/.*/, async (ctx) => {
         results.push(createErrorResult(ctx, "inline_empty"));
     } else {
         try {
-            console.log("Creating audio result");
             results.push(await createAudioResult(ctx, text));
-            console.log("creating db entry");
 
             await database.audio.create({
                 data: {
@@ -70,7 +66,6 @@ inline.inlineQuery(/.*/, async (ctx) => {
                 }
             })
         } catch (error) {
-            console.log(error);
             results.push(createErrorResult(ctx, "inline_empty"));
         }
     }
