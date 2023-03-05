@@ -27,7 +27,7 @@ type EditOrReplyContext = {
 
 export type TTSContext = ParseModeFlavor<HydrateFlavor<Context>> & I18nFlavor & UserContext & EditOrReplyContext;
 
-const bot = new Bot<TTSContext>("6048474579:AAHgFFIQqixf4TuU8vWIHdDNDURqaibyY4k");
+const bot = new Bot<TTSContext>("YOUR TOKEN HERE");
 
 const i18n = new I18n<TTSContext>({
     defaultLocale: "en",
