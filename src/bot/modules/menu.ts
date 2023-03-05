@@ -1,5 +1,6 @@
 import {TTSContext} from "../bot.js";
 import {Composer, InlineKeyboard} from "grammy";
+import {handle as handleLanguage} from "./language.js";
 
 export const menu = new Composer<TTSContext>();
 
@@ -18,6 +19,11 @@ async function handle(ctx: TTSContext) {
 }
 
 menu.command("start", async (ctx) => {
+    if (ctx.message?.text?.includes("language")) {
+        await handleLanguage(ctx);
+        return;
+    }
+
     await handle(ctx);
 });
 
