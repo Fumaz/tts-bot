@@ -6,7 +6,7 @@ import {rm} from "fs/promises";
 export const audio = new Composer<TTSContext>();
 
 audio.hears(/^(?!\/)/, async (ctx) => {
-    const text = ctx.match[1];
+    const text = ctx.message!.text!.replace(/[\n\r]/g, " ").trim();
     const waitingMessage = await ctx.replyWithHTML(ctx.t("creating"));
 
     try {
