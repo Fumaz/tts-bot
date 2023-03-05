@@ -46,6 +46,8 @@ async function createAudioResult(ctx: TTSContext, text: string, keyboard: boolea
 }
 
 inline.inlineQuery(/^$/, async (ctx) => {
+    console.log("Inline query: " + ctx.inlineQuery.query);
+
     const text = ctx.inlineQuery.query.replace(/[\n\r]/g, " ").trim();
     const switchPMText = ctx.t("inline_language");
     const switchPMParameter = "language";

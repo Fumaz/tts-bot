@@ -31,6 +31,7 @@ async function convertToOGG(filename: string): Promise<string> {
             if (code === 0) {
                 resolve(output);
             } else {
+                console.log("status code: " + code);
                 reject();
             }
         });
