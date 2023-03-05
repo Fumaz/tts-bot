@@ -23,6 +23,9 @@ async function convertToOGG(filename: string): Promise<string> {
     const output = filename.replace(".mp3", ".ogg");
     const process = await exec(`ffmpeg -i ${filename} -acodec libopus -b:a 64k -vbr on ${output}`);
 
+    process.stdout?.on("data", (data) => console.log(data));
+    process.stderr?.on("data", (data) => console.error(data));
+
     return new Promise((resolve, reject) => {
         process.on("exit", (code) => {
             if (code === 0) {

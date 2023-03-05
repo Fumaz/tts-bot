@@ -56,7 +56,9 @@ inline.inlineQuery(/^$/, async (ctx) => {
         results.push(createErrorResult(ctx, "inline_empty"));
     } else {
         try {
+            console.log("Creating audio result");
             results.push(await createAudioResult(ctx, text));
+            console.log("creating db entry");
 
             await database.audio.create({
                 data: {
@@ -66,6 +68,7 @@ inline.inlineQuery(/^$/, async (ctx) => {
                 }
             })
         } catch (error) {
+            console.log(error);
             results.push(createErrorResult(ctx, "inline_empty"));
         }
     }
