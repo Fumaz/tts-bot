@@ -49,8 +49,8 @@ bot.api.config.use(autoRetry());
 bot.use(hydrateReply);
 bot.use(hydrate());
 bot.use(limit({
-    timeFrame: 2000,
-    limit: 3
+    timeFrame: 5000,
+    limit: 2
 }));
 bot.use(database);
 bot.use(editOrReply);
