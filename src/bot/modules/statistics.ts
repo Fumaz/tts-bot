@@ -84,11 +84,13 @@ statistics.callbackQuery("statistics", async (ctx) => {
 
         const usersChartQueried = await database.$queryRaw<any[]>(Prisma.sql`SELECT created_at::DATE AS date, COUNT(id) AS count
 FROM "User"
-GROUP BY created_at::DATE;`);
+GROUP BY created_at::DATE
+ORDER BY created_at::DATE ASC;`);
 
         const audiosChartQueried = await database.$queryRaw<any[]>(Prisma.sql`SELECT created_at::DATE AS date, COUNT(id) AS count
 FROM "Audio"
-GROUP BY created_at::DATE;`);
+GROUP BY created_at::DATE
+ORDER BY created_at::DATE ASC;`);
 
 //         const audiosCharactersChartQueried = await database.$queryRaw<any[]>(Prisma.sql`SELECT created_at::DATE AS date, SUM(length) AS sum
 // FROM "Audio"
