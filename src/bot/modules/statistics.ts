@@ -143,7 +143,8 @@ GROUP BY created_at::DATE;`);
                         data: usersData,
                         borderColor: "rgb(255, 99, 132)",
                         backgroundColor: "rgb(255, 99, 132)",
-                        radius: 0
+                        radius: 0,
+                        tension: 1
                     },
                     {
                         label: ctx.t("audios"),
@@ -151,6 +152,7 @@ GROUP BY created_at::DATE;`);
                         borderColor: "rgb(54, 162, 235)",
                         backgroundColor: "rgb(54, 162, 235)",
                         radius: 0,
+                        tension: 1
                     }
                 ]
             },
