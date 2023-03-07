@@ -1,4 +1,4 @@
-import {Composer, InlineKeyboard} from "grammy";
+import {Composer, InlineKeyboard, InputFile} from "grammy";
 import {TTSContext} from "../bot.js";
 import {database} from "../../database/database.js";
 import dayjs from "dayjs";
@@ -18,7 +18,7 @@ const cached = {
     activeToday: 0,
     characters: 0,
     charactersToday: 0,
-    chart: "/usr/src/app/assets/chart.png"
+    chart: null as Buffer | null
 };
 
 statistics.callbackQuery("statistics", async (ctx) => {
@@ -165,8 +165,7 @@ GROUP BY created_at::DATE;`);
             }
         };
 
-        const image = await canvas.renderToBuffer(configuration);
-        await promisify(fs.writeFile)(cached.chart, image);
+        cached.chart = await canvas.renderToBuffer(configuration);
     }
 
     const keyboard = new InlineKeyboard()
@@ -175,7 +174,7 @@ GROUP BY created_at::DATE;`);
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
 
-    await ctx.replyWithPhoto(cached.chart, {
+    await ctx.replyWithPhoto(new InputFile(cached.chart!), {
         caption: ctx.t("statistics", {
             users: cached.users,
             audios: cached.audios,
