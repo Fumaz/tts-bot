@@ -7,6 +7,12 @@ export const audio = new Composer<TTSContext>();
 
 audio.on('message:text').hears(/^(?!\/)/, async (ctx) => {
     const text = ctx.message.text.replace(/[\n\r]/g, " ").trim();
+
+    if (text.length > 500) {
+        await ctx.replyWithHTML(ctx.t("text_too_long"));
+        return;
+    }
+
     const waitingMessage = await ctx.replyWithHTML(ctx.t("creating"));
 
     try {

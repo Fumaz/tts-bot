@@ -54,6 +54,8 @@ inline.inlineQuery(/.*/, async (ctx) => {
 
     if (!text) {
         results.push(createErrorResult(ctx, "inline_empty"));
+    } else if (text.length > 500) {
+        results.push(createErrorResult(ctx, "text_too_long"));
     } else {
         try {
             results.push(await createAudioResult(ctx, text));
