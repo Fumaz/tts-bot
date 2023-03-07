@@ -9,7 +9,7 @@ export async function editOrReply(ctx: TTSContext, next: NextFunction) {
                 ...options
             });
         } else {
-            if (options.delete) {
+            if (options.delete && ctx.message?.from?.id === ctx.me.id) {
                 await ctx.deleteMessage();
             }
 
