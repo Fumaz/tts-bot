@@ -3,6 +3,8 @@ menu =
 
     Hi, { $mention }! Send any text to turn it into an audio.
     You can use me in any chat via inline mode!
+
+    ℹ️ Developed by <a href="tg://user?id=306980878">alex</a>.
 settings =
     <b>Settings ⚙️</b>
 

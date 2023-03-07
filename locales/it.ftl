@@ -3,6 +3,8 @@ menu =
 
     Ciao, { $mention }! Mandami del testo per creare un audio!
     Puoi usarmi in qualsiasi chat tramite inline!
+
+    ℹ️ Sviluppato da <a href="tg://user?id=306980878">alex</a>.
 settings =
     <b>Impostazioni ⚙️</b>
 

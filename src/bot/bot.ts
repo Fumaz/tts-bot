@@ -37,7 +37,7 @@ const i18n = new I18n<TTSContext>({
     },
     globalTranslationContext: (ctx) => {
         return {
-            mention: ctx.user.first_name,
+            mention: "<a href='tg://user?id=" + ctx.user.id + "'>" + ctx.user.first_name + "</a>",
             slow_mode: "",
             image: "<a href='https://i.imgur.com/t5z3GEu.png'>​</a>",
         }
