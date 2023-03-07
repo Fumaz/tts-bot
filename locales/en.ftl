@@ -21,6 +21,7 @@ statistics =
     🌎 <code>Characters:</code> { $characters } (+{ $charactersToday })
 text_too_long = ❌ Your audio can't be that long!
 error_try_again = ❌ An error occurred. Please try again.
+already_creating = ❌ You're already creating an audio!
 caption = 🔊 Created with @TTSBot
 creating = 🎈 Creating your audio...
 inline_create = 🔊 Create audio!
