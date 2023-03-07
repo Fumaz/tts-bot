@@ -99,7 +99,7 @@ GROUP BY created_at::DATE;`);
         const commonLabels = usersLabels.filter((item) => audiosLabels.includes(item));
 
         const usersData = [];
-        let total = 0;
+        let total = BigInt(0);
 
         for (const item of usersChartQueried) {
             total += item.count;
@@ -108,11 +108,11 @@ GROUP BY created_at::DATE;`);
                 continue;
             }
 
-            usersData.push(total);
+            usersData.push(Number(total.toString()));
         }
 
         const audiosData = [];
-        total = 0;
+        total = BigInt(0);
 
         for (const item of audiosChartQueried) {
             total += item.count;
@@ -121,7 +121,7 @@ GROUP BY created_at::DATE;`);
                 continue;
             }
 
-            audiosData.push(total);
+            audiosData.push(Number(total.toString()));
         }
 
         // const audiosCharactersLabels = audiosCharactersChartQueried.map((item: any) => dayjs(item.date).format("DD/MM/YYYY"));
