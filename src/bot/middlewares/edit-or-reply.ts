@@ -3,12 +3,16 @@ import {TTSContext} from "../bot.js";
 
 export async function editOrReply(ctx: TTSContext, next: NextFunction) {
     ctx.editOrReplyWithHTML = async (text: string, options: any) => {
-        if (ctx?.callbackQuery?.message?.from?.id === ctx.me.id) {
+        if (ctx?.callbackQuery?.message?.from?.id === ctx.me.id && ctx.callbackQuery?.message?.text) {
             return ctx.editMessageText(text, {
                 parse_mode: "HTML",
                 ...options
             });
         } else {
+            if (options.delete) {
+                await ctx.deleteMessage();
+            }
+
             return ctx.replyWithHTML(text, options);
         }
     };

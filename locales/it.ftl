@@ -36,3 +36,5 @@ inline_button = Inline 🔗
 slow_mode_button = Modalitá lenta 🐢
 back_button = Indietro ⬅️
 create_button = Crea audio 🔊
+users = utenti
+audios = audio

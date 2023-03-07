@@ -14,6 +14,7 @@ async function handle(ctx: TTSContext) {
     const message = ctx.t("menu");
 
     await ctx.editOrReplyWithHTML(message, {
+        delete: true,
         reply_markup: keyboard
     });
 }
